@@ -8,16 +8,16 @@ import { words } from "./stopWord.js";
 class TfIdf {
   constructor() {
     this.corpus = [],
-      this.tracker = []
+    this.tracker = []
   }
 
   /*
   *  Recebe o caminho para o documento especí-
   *  fico (INDIVIDUAL) e o converte em um array.
   */
-  umDocParaCorpus(caminho) {
+  umDocParaCorpus(arquivo) {
     try {
-      let data = readFileSync(caminho, { encoding: 'utf8' });
+      let data = readFileSync(arquivo, { encoding: 'utf8' });
 
       data = data.replace(/[^A-z\u00C0-\u00ff]+/g," ");
       data = data.trim();
@@ -29,7 +29,7 @@ class TfIdf {
       this.corpus.push(data);
       this.tracker.push({
         index: this.corpus.length - 1,
-        documento: caminho
+        documento: arquivo
       })
     } catch (err) {
       throw err
@@ -43,7 +43,6 @@ class TfIdf {
   *  e o converte em um array.
   */
   grupoDocsParaCorpus(docs) {
-    //let corpus = []
     for (let i = 0; i < docs.length; i++) {
       try {
         let data = readFileSync(docs[i], { encoding: 'utf8' });
